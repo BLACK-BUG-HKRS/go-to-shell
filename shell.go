@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"os/exec"
 	"strings"
 )
 
@@ -19,6 +20,9 @@ func shell() {
 }
 
 func execInput(input string) error {
-	//remove the new line character
+	// remove the new line character
 	input = strings.TrimSuffix(input, "\n")
+	// Prepare the command to execute
+	cmd := exec.Command(input)
+	// Set the correct output device
 }
