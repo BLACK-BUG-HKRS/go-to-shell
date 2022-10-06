@@ -57,6 +57,14 @@ type Command struct {
 	wd   string
 }
 
+func (c *Command) ProcFn() func(...interface{}) *Process {
+	return func(args ...interface{}) *Process {
+		cmd := &Command{c.args, c.in, c.wd}
+		cmd.addArgs(args...)
+		return cmd.Run()
+	}
+}
+
 func main() {
 	reader := bufio.NewReader(os.Stdin)
 	for {
