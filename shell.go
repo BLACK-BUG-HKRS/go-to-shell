@@ -2,7 +2,9 @@ package shell
 
 import (
 	"bufio"
+	"fmt"
 	"os"
+	"strings"
 )
 
 func shell() {
@@ -10,5 +12,13 @@ func shell() {
 	for {
 		//read keyboard input
 		input, err := reader.ReadString('\n')
+		if err != nil {
+			fmt.Fprintln(os.Stderr, err)
+		}
 	}
+}
+
+func execInput(input string) error {
+	//remove the new line character
+	input = strings.TrimSuffix(input, "\n")
 }
