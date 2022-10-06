@@ -40,6 +40,17 @@ func Quote(arg string) string {
 	return fmt.Sprintf("'%s'", strings.Replace(arg, "'", "'\\''", -1))
 }
 
+func ErrExit() {
+	if p, ok := recover().(*Process); p != nil {
+		if !ok {
+			fmt.Fprintf(os.Stderr, "Unexpected panic: %v\n", p)
+			exit(1)
+		}
+		fmt.Fprintf(os.Stderr, "%s\n", p.Error())
+		exit(p.ExitStatus)
+	}
+}
+
 func main() {
 	reader := bufio.NewReader(os.Stdin)
 	for {
