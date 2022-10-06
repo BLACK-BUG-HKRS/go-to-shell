@@ -3,10 +3,59 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"io"
 	"os"
 	"os/exec"
+	"path/filepath"
 	"strings"
 )
+
+var (
+	Shell       = []string{"/bin/sh", "-c"}
+	Panic       = true
+	Trace       = false
+	TracePrefix = "+"
+
+	exit = os.Exit
+)
+var Tee io.Writer
+
+func assert(err error) {
+	if err != nil {
+		panic(err)
+	}
+}
+
+func Path(parts ...string) string {
+	return filepath.Join(parts...)
+}
+
+func PathTemplate(parts ...string) func(...interface{}) string {
+	return func(values ...interface{}) string {
+		return fmt.Sprintf(Path(parts...), values...)
+	}
+}
+
+func Quote(arg string) string {
+	return fmt.Sprintf("'%s'", strings.Replace(arg, "'", "'\\''", -1))
+}
+
+func ErrExit() {
+	if p, ok := recover().(*Process); p != nil {
+		if !ok {
+			fmt.Fprintf(os.Stderr, "Unexpected panic: %v\n", p)
+			exit(1)
+		}
+		fmt.Fprintf(os.Stderr, "%s\n", p.Error())
+		exit(p.ExitStatus)
+	}
+}
+
+type Command struct {
+	args []string
+	in   *Command
+	wd   string
+}
 
 func main() {
 	reader := bufio.NewReader(os.Stdin)
