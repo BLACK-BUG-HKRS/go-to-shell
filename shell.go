@@ -27,11 +27,14 @@ func main() {
 func execInput(input string) error {
 	// remove the new line character
 	input = strings.TrimSuffix(input, "\n")
+
 	// Prepare the command to execute
 	cmd := exec.Command(input)
+
 	// Set the correct output device
 	cmd.Stderr = os.Stderr
 	cmd.Stdout = os.Stdout
+
 	// execute the command and return the error
 	return cmd.Run()
 }
