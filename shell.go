@@ -30,6 +30,12 @@ func Path(parts ...string) string {
 	return filepath.Join(parts...)
 }
 
+func PathTemplate(parts ...string) func(...interface{}) string {
+	return func(values ...interface{}) string {
+		return fmt.Sprintf(Path(parts...), values...)
+	}
+}
+
 func main() {
 	reader := bufio.NewReader(os.Stdin)
 	for {
