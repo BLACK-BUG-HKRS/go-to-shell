@@ -11,11 +11,14 @@ import (
 func shell() {
 	reader := bufio.NewReader(os.Stdin)
 	for {
+		fmt.Print("$ ")
 		//read keyboard input
 		input, err := reader.ReadString('\n')
 		if err != nil {
 			fmt.Fprintln(os.Stderr, err)
 		}
+		// handle execution of the input
+
 	}
 }
 
@@ -28,4 +31,5 @@ func execInput(input string) error {
 	cmd.Stderr = os.Stderr
 	cmd.Stdout = os.Stdout
 	// execute the command and return the error
+	return cmd.Run()
 }
