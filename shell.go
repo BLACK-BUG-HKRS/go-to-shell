@@ -19,6 +19,12 @@ var (
 )
 var Tee io.Writer
 
+func assert(err error) {
+	if err != nil {
+		panic(err)
+	}
+}
+
 func main() {
 	reader := bufio.NewReader(os.Stdin)
 	for {
