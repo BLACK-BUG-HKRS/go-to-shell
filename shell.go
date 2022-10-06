@@ -1,4 +1,4 @@
-package shell
+package main
 
 import (
 	"bufio"
@@ -8,7 +8,7 @@ import (
 	"strings"
 )
 
-func shell() {
+func main() {
 	reader := bufio.NewReader(os.Stdin)
 	for {
 		fmt.Print("$ ")
