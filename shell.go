@@ -6,6 +6,7 @@ import (
 	"io"
 	"os"
 	"os/exec"
+	"path/filepath"
 	"strings"
 )
 
@@ -23,6 +24,10 @@ func assert(err error) {
 	if err != nil {
 		panic(err)
 	}
+}
+
+func Path(parts ...string) string {
+	return filepath.Join(parts...)
 }
 
 func main() {
