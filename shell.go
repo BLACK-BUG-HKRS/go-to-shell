@@ -7,5 +7,8 @@ import (
 
 func shell() {
 	reader := bufio.NewReader(os.Stdin)
-	input, err := reader.ReadString('\n')
+	for {
+		//read keyboard input
+		input, err := reader.ReadString('\n')
+	}
 }
