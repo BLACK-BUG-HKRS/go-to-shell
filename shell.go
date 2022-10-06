@@ -8,6 +8,15 @@ import (
 	"strings"
 )
 
+var (
+	Shell       = []string{"/bin/sh", "-c"}
+	Panic       = true
+	Trace       = false
+	TracePrefix = "+"
+
+	exit = os.Exit
+)
+
 func main() {
 	reader := bufio.NewReader(os.Stdin)
 	for {
