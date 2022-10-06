@@ -36,6 +36,10 @@ func PathTemplate(parts ...string) func(...interface{}) string {
 	}
 }
 
+func Quote(arg string) string {
+	return fmt.Sprintf("'%s'", strings.Replace(arg, "'", "'\\''", -1))
+}
+
 func main() {
 	reader := bufio.NewReader(os.Stdin)
 	for {
