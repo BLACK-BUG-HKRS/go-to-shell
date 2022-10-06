@@ -27,9 +27,16 @@ func main() {
 func execInput(input string) error {
 	// remove the new line character
 	input = strings.TrimSuffix(input, "\n")
+	arrInputs := strings.Fields(input)
+
+	switch arrInputs[0] {
+	case "exit":
+		//adding custom commands
+		os.Exit(0)
+	}
 
 	// Prepare the command to execute
-	cmd := exec.Command(input)
+	cmd := exec.Command(arrInputs[0], arrInputs[1:]...)
 
 	// Set the correct output device
 	cmd.Stderr = os.Stderr
