@@ -65,6 +65,24 @@ func (c *Command) ProcFn() func(...interface{}) *Process {
 	}
 }
 
+func (c *Command) OutputFn() func(...interface{}) (string, error) {
+	return func(args ...interface{}) (out string, err error) {
+		cmd := &Command{c.args, c.in, c.wd}
+		cmd.addArgs(args...)
+		defer func() {
+			if p, ok := recover().(*Process); p != nil {
+				if ok {
+					err = p.Error()
+				} else {
+					err = fmt.Errorf("panic: %v", p)
+				}
+			}
+		}()
+		out = cmd.Run().String()
+		return
+	}
+}
+
 func main() {
 	reader := bufio.NewReader(os.Stdin)
 	for {
