@@ -18,6 +18,7 @@ var (
 
 	exit = os.Exit
 )
+
 var Tee io.Writer
 
 func assert(err error) {
