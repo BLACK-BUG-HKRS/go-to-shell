@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"io"
 	"os"
 	"os/exec"
 	"strings"
@@ -16,6 +17,7 @@ var (
 
 	exit = os.Exit
 )
+var Tee io.Writer
 
 func main() {
 	reader := bufio.NewReader(os.Stdin)
