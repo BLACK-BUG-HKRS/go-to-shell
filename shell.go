@@ -51,6 +51,12 @@ func ErrExit() {
 	}
 }
 
+type Command struct {
+	args []string
+	in   *Command
+	wd   string
+}
+
 func main() {
 	reader := bufio.NewReader(os.Stdin)
 	for {
